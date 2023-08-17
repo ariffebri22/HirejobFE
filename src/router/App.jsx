@@ -1,10 +1,11 @@
 import { Fragment } from "react";
-import SortPage from "../pages/Home/Sort/index";
+import Hire from "../pages/Home/Hire/index";
+import "../style/style.css";
 
 function App() {
   return (
     <Fragment>
-      <SortPage />
+      <Hire />
     </Fragment>
   );
 }

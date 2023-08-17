@@ -71,3 +71,18 @@ body {
     margin-top: 20px;
   }
 }
+
+/* Hire page  */
+
+.skills {
+  font-size: 0.9em;
+  background-color: #fbb017;
+  padding: 6px 20px;
+  border-radius: 4px;
+  color: white;
+}
+
+.form-focus:focus {
+  border-color: #5e50a1;
+  box-shadow: 0 0 5px #34296b;
+}

@@ -10,7 +10,11 @@ import {
 const index = () => {
   return (
     <Fragment>
-      <Navbar expand="lg" style={{ backgroundColor: "white" }}>
+      <Navbar
+        expand="lg"
+        style={{ backgroundColor: "white" }}
+        className="shadow"
+      >
         <Container>
           <Navbar.Brand>
             <img src={logo} alt="img" />
