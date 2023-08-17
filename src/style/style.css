@@ -86,3 +86,18 @@ body {
   border-color: #5e50a1;
   box-shadow: 0 0 5px #34296b;
 }
+
+/* Chat page  */
+
+.user-card {
+  display: flex;
+  gap: 2rem;
+  padding: 10px;
+  background-color: var(--user-card-background, initial);
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.user-card.active {
+  --user-card-background: #fbb017;
+}
