@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import "./App.css";
+import { Fragment } from "react";
+import SortPage from "../pages/Home/Sort/index";
 
 function App() {
-    return (
-        <>
-            <h1>Kelompok 2</h1>
-        </>
-    );
+  return (
+    <Fragment>
+      <SortPage />
+    </Fragment>
+  );
 }
 
 export default App;
