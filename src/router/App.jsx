@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../pages/Home/LandingPage";
 
 function App() {
     return (
-        <>
-            <h1>Kelompok 2</h1>
-        </>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Router>
     );
 }
 
