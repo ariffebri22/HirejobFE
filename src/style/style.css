@@ -2,6 +2,8 @@
 
 * {
     font-family: "Open Sans", sans-serif !important;
+    margin: 0;
+    padding: 0;
 }
 
 section {
@@ -151,9 +153,83 @@ footer hr {
     overflow: hidden;
 }
 
-.containerCta .divcta svg {
+.containerCta button {
+    background-color: white;
+    color: #5e50a1;
+    height: 3.5rem;
+    border: 2px solid #5e50a1;
+}
+
+.containerCta button:hover {
+    border: 2px solid white;
+    color: white !important;
+}
+
+.containerSkill .rectangle {
     position: absolute;
-    width: 80rem;
-    height: 15rem;
-    margin-top: -38px;
+    z-index: -99;
+    width: 25rem;
+    height: 20rem;
+    transform: rotate(12.569deg);
+    flex-shrink: 0;
+    background-color: #e2e5ed;
+}
+
+.containerSkill .cube {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    flex-shrink: 0;
+    background-color: #fbb017;
+    margin-left: 25rem;
+    margin-bottom: 19rem;
+}
+
+.containerSkill .svg2 {
+    position: absolute;
+    margin-top: 17rem;
+    margin-left: 22rem;
+}
+
+.containerSkill .list p {
+    color: #46505c;
+}
+
+.containerSkill .img-why {
+    height: 23rem;
+}
+
+.containerSkill .splitPage {
+    margin-right: 5rem;
+}
+
+.containerOpinion img {
+    width: 8rem;
+    border: 0.6rem solid rgba(251, 176, 23, 0.37);
+}
+
+.containerOpinion .card {
+    border: none;
+    box-shadow: 0px 8px 16px 0px rgba(197, 197, 197, 0.25);
+    width: 20rem;
+}
+
+@media (max-width: 992px) {
+    .containerHome .row {
+        flex-direction: column-reverse;
+    }
+    .containerHome .content {
+        margin-top: 5rem;
+    }
+
+    .containerSkill .row {
+        flex-direction: column-reverse;
+    }
+
+    .containerCta button {
+        background-color: white;
+        color: #5e50a1;
+        height: 5.5rem;
+        border: 2px solid #5e50a1;
+    }
 }
