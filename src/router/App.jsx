@@ -1,6 +1,7 @@
-import { Fragment } from "react";
-import Hire from "../pages/Home/Hire/index";
-import "../style/style.css";
+import { Fragment } from 'react';
+import Hire from '../pages/Home/Hire/index';
+
+import '../style/style.css';
 
 function App() {
   return (
