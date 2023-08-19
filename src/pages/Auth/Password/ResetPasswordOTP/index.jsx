@@ -1,9 +1,8 @@
-import React from 'react';
-import Pict from '../../../../assets/img/Mask Group.png';
-import Uppict from '../../../../assets/img/up.png';
-import Logo from '../../../../assets/img/Logo.svg';
+import Pict from "../../../../assets/img/Mask Group.png";
+import Uppict from "../../../../assets/img/up.png";
+import Logo from "../../../../assets/img/Logo.svg";
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export default function Otp() {
   return (
@@ -24,7 +23,7 @@ export default function Otp() {
               <div className="upback position-absolute">
                 <img
                   src={Uppict}
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                   className="pt-5 pb-5"
                 />
               </div>
@@ -32,7 +31,7 @@ export default function Otp() {
                 src={Pict}
                 alt="LoginPict"
                 className="pt-5 pb-5"
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
               />
             </div>
           </div>
@@ -41,35 +40,41 @@ export default function Otp() {
               <div className="text-login mb-5">
                 <h1 className="mb-3">OTP</h1>
                 <p className="mb-3">
-                  Enter your user account's verified email address and we will
+                  Enter your user accounts verified email address and we will
                   send you a password reset link.
                 </p>
               </div>
               <form className="">
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label text-muted">
+                <div className="mb-3">
+                  <label
+                    htmlFor="exampleInputEmail1"
+                    className="form-label text-muted"
+                  >
                     Email address
                   </label>
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Masukkan Email"
                   />
                 </div>
-                <div class="mb-5">
-                  <label for="exampleInputEmail1" class="form-label text-muted">
+                <div className="mb-5">
+                  <label
+                    htmlFor="exampleInputEmail1"
+                    className="form-label text-muted"
+                  >
                     Otp
                   </label>
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Masukkan Otp"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  class="btn btn-warning w-100 mb-4 text-light"
+                  className="btn btn-warning w-100 mb-4 text-light"
                 >
                   Go To Change Password
                 </button>

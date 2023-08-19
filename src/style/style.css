@@ -1,342 +1,342 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    font-family: "Open Sans", sans-serif !important;
-    margin: 0;
-    padding: 0;
+  font-family: "Open Sans", sans-serif !important;
+  margin: 0;
+  padding: 0;
 }
 
 /* Sort Page  */
 
 body {
-    background-color: #e2e5ed !important;
+  background-color: #e2e5ed !important;
 }
 
 .wrapperSearchBar {
-    width: 100%;
-    background-color: white;
+  width: 100%;
+  background-color: white;
 }
 
 .inputGrup {
-    width: 70%;
-    height: 50px;
-    border: none;
-    padding-left: 20px;
+  width: 70%;
+  height: 50px;
+  border: none;
+  padding-left: 20px;
 }
 
 .wrapperButton {
-    width: 25%;
-    border-left: 1px solid #46505c;
+  width: 25%;
+  border-left: 1px solid #46505c;
 }
 
 .buttonCategory {
-    width: 45%;
-    padding: 10px 0;
-    color: #46505c;
-    background-color: white;
+  width: 45%;
+  padding: 10px 0;
+  color: #46505c;
+  background-color: white;
 }
 
 .buttonSearch {
-    width: 45%;
-    color: white;
-    background-color: #5e50a1;
+  width: 45%;
+  color: white;
+  background-color: #5e50a1;
 }
 
 .iconSearch {
-    background-color: white;
+  background-color: white;
 }
 
 .page-link.active .page-link {
-    background-color: #5e50a1 !important;
-    border-color: #5e50a1 !important;
-    color: white;
+  background-color: #5e50a1 !important;
+  border-color: #5e50a1 !important;
+  color: white;
 }
 
 @media screen and (max-width: 767px) {
-    .wrapperSearchBar {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        width: 100%;
-        background-color: white;
-        padding: 10px;
-    }
-    .inputGrup {
-        width: 82% !important;
-        padding-left: 20px;
-    }
+  .wrapperSearchBar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+  }
+  .inputGrup {
+    width: 82% !important;
+    padding-left: 20px;
+  }
 
-    .iconSearch {
-        background-color: white;
-        font-weight: 700;
-        padding: 10px 10px;
-        margin: 0 10px;
-    }
+  .iconSearch {
+    background-color: white;
+    font-weight: 700;
+    padding: 10px 10px;
+    margin: 0 10px;
+  }
 
-    .wrapperButton {
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-    }
+  .wrapperButton {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
 }
 
 /* Hire page  */
 
 .skills {
-    font-size: 0.9em;
-    background-color: #fbb017;
-    padding: 6px 20px;
-    border-radius: 4px;
-    color: white;
+  font-size: 0.9em;
+  background-color: #fbb017;
+  padding: 6px 20px;
+  border-radius: 4px;
+  color: white;
 }
 
 .form-focus:focus {
-    border-color: #5e50a1;
-    box-shadow: 0 0 5px #34296b;
+  border-color: #5e50a1 !important;
+  box-shadow: 0 0 5px #34296b !important;
 }
 
 /* Chat page  */
 
 .user-card {
-    display: flex;
-    gap: 2rem;
-    padding: 10px;
-    background-color: var(--user-card-background, initial);
-    cursor: pointer;
-    margin-bottom: 10px;
+  display: flex;
+  gap: 2rem;
+  padding: 10px;
+  background-color: var(--user-card-background, initial);
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .user-card.active {
-    --user-card-background: #fbb017;
+  --user-card-background: #fbb017;
 }
 
 /* editprofile rekruiter */
 
 .picture {
-    height: 150px;
-    width: 150px;
-    background: #e5e5e5;
-    border-radius: 100%;
-    border: none;
+  height: 150px;
+  width: 150px;
+  background: #e5e5e5;
+  border-radius: 100%;
+  border: none;
 }
 
 .input-edit {
-    display: none;
+  display: none;
 }
 
 section {
-    margin-top: 8rem;
+  margin-top: 8rem;
 }
 
 /*---------- Navbar ---------*/
 nav .navbar {
-    /* background-color: red; */
-    height: 5rem;
+  /* background-color: red; */
+  height: 5rem;
 }
 
 nav .btnNavbar {
-    display: block !important;
+  display: block !important;
 }
 
 nav .btnNavbar button:nth-child(1) {
-    background-color: white;
-    color: #5e50a1;
-    font-size: 0.9rem;
-    border: 2px solid #5e50a1;
-    font-weight: 600;
+  background-color: white;
+  color: #5e50a1;
+  font-size: 0.9rem;
+  border: 2px solid #5e50a1;
+  font-weight: 600;
 }
 
 nav .btnNavbar button:nth-child(2) {
-    background-color: #5e50a1;
-    color: white;
-    font-size: 0.9rem;
-    border: 2px solid #5e50a1;
-    font-weight: 600;
+  background-color: #5e50a1;
+  color: white;
+  font-size: 0.9rem;
+  border: 2px solid #5e50a1;
+  font-weight: 600;
 }
 
 nav .btnNavbar button:nth-child(1):hover {
-    background-color: #5e50a1;
-    color: white;
-    border: 2px solid #5e50a1;
+  background-color: #5e50a1;
+  color: white;
+  border: 2px solid #5e50a1;
 }
 
 nav .btnNavbar button:nth-child(2):hover {
-    background-color: white;
-    color: #5e50a1;
-    border: 2px solid #5e50a1;
+  background-color: white;
+  color: #5e50a1;
+  border: 2px solid #5e50a1;
 }
 
 /*---------- Landing Page ---------*/
 .containerHome h1 {
-    line-height: 60px;
-    color: #1f2a36;
-    font-family: Open Sans;
-    font-size: 2.5rem;
-    font-style: normal;
-    font-weight: 600;
+  line-height: 60px;
+  color: #1f2a36;
+  font-family: Open Sans;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
 }
 
 .containerHome p {
-    color: #46505c;
-    font-family: Open Sans;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 28px;
+  color: #46505c;
+  font-family: Open Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
 }
 
 .containerHome button {
-    background-color: #5e50a1;
-    height: 3.5rem;
-    border: 2px solid #5e50a1;
+  background-color: #5e50a1;
+  height: 3.5rem;
+  border: 2px solid #5e50a1;
 }
 
 .containerHome button:hover {
-    border: 2px solid #5e50a1;
-    color: #5e50a1 !important;
+  border: 2px solid #5e50a1;
+  color: #5e50a1 !important;
 }
 
 .containerHome img {
-    width: 23rem;
+  width: 23rem;
 }
 
 .containerHome .square {
-    position: absolute;
-    width: 23rem;
-    height: 23rem;
-    transform: rotate(-15.787deg);
-    flex-shrink: 0;
-    background-color: #e2e5ed;
-    z-index: -99;
+  position: absolute;
+  width: 23rem;
+  height: 23rem;
+  transform: rotate(-15.787deg);
+  flex-shrink: 0;
+  background-color: #e2e5ed;
+  z-index: -99;
 }
 
 .containerHome .svg1 {
-    position: absolute;
-    margin-right: 21rem;
-    margin-top: 17.6rem;
+  position: absolute;
+  margin-right: 21rem;
+  margin-top: 17.6rem;
 }
 
 .containerWhy .rectangle {
-    position: absolute;
-    z-index: -99;
-    width: 25rem;
-    height: 20rem;
-    transform: rotate(12.569deg);
-    flex-shrink: 0;
-    background-color: #e2e5ed;
+  position: absolute;
+  z-index: -99;
+  width: 25rem;
+  height: 20rem;
+  transform: rotate(12.569deg);
+  flex-shrink: 0;
+  background-color: #e2e5ed;
 }
 
 .containerWhy .cube {
-    position: absolute;
-    width: 5rem;
-    height: 5rem;
-    flex-shrink: 0;
-    background-color: #5e50a1;
-    margin-right: 23rem;
-    margin-bottom: 19rem;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  background-color: #5e50a1;
+  margin-right: 23rem;
+  margin-bottom: 19rem;
 }
 
 .containerWhy .svg2 {
-    position: absolute;
-    margin-top: 16rem;
-    margin-right: 19rem;
+  position: absolute;
+  margin-top: 16rem;
+  margin-right: 19rem;
 }
 
 .containerWhy .list p {
-    color: #46505c;
+  color: #46505c;
 }
 
 .containerWhy .img-why {
-    height: 23rem;
+  height: 23rem;
 }
 
 .containerCta .divcta {
-    position: relative;
-    width: 100%;
-    height: 14rem;
-    flex-shrink: 0;
-    background-color: #5e50a1;
-    border-radius: 40px 8px;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 14rem;
+  flex-shrink: 0;
+  background-color: #5e50a1;
+  border-radius: 40px 8px;
+  overflow: hidden;
 }
 
 .containerCta button {
-    background-color: white;
-    color: #5e50a1;
-    height: 3.5rem;
-    border: 2px solid #5e50a1;
+  background-color: white;
+  color: #5e50a1;
+  height: 3.5rem;
+  border: 2px solid #5e50a1;
 }
 
 .containerCta button:hover {
-    border: 2px solid white;
-    color: white !important;
+  border: 2px solid white;
+  color: white !important;
 }
 
 .containerSkill .rectangle {
-    position: absolute;
-    z-index: -99;
-    width: 25rem;
-    height: 20rem;
-    transform: rotate(12.569deg);
-    flex-shrink: 0;
-    background-color: #e2e5ed;
+  position: absolute;
+  z-index: -99;
+  width: 25rem;
+  height: 20rem;
+  transform: rotate(12.569deg);
+  flex-shrink: 0;
+  background-color: #e2e5ed;
 }
 
 .containerSkill .cube {
-    position: absolute;
-    width: 5rem;
-    height: 5rem;
-    flex-shrink: 0;
-    background-color: #fbb017;
-    margin-left: 25rem;
-    margin-bottom: 19rem;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  background-color: #fbb017;
+  margin-left: 25rem;
+  margin-bottom: 19rem;
 }
 
 .containerSkill .svg2 {
-    position: absolute;
-    margin-top: 17rem;
-    margin-left: 22rem;
+  position: absolute;
+  margin-top: 17rem;
+  margin-left: 22rem;
 }
 
 .containerSkill .list p {
-    color: #46505c;
+  color: #46505c;
 }
 
 .containerSkill .img-why {
-    height: 23rem;
+  height: 23rem;
 }
 
 .containerSkill .splitPage {
-    margin-right: 5rem;
+  margin-right: 5rem;
 }
 
 .containerOpinion img {
-    width: 8rem;
-    border: 0.6rem solid rgba(251, 176, 23, 0.37);
+  width: 8rem;
+  border: 0.6rem solid rgba(251, 176, 23, 0.37);
 }
 
 .containerOpinion .card {
-    border: none;
-    box-shadow: 0px 8px 16px 0px rgba(197, 197, 197, 0.25);
-    width: 20rem;
+  border: none;
+  box-shadow: 0px 8px 16px 0px rgba(197, 197, 197, 0.25);
+  width: 20rem;
 }
 
 @media (max-width: 992px) {
-    .containerHome .row {
-        flex-direction: column-reverse;
-    }
-    .containerHome .content {
-        margin-top: 5rem;
-    }
+  .containerHome .row {
+    flex-direction: column-reverse;
+  }
+  .containerHome .content {
+    margin-top: 5rem;
+  }
 
-    .containerSkill .row {
-        flex-direction: column-reverse;
-    }
+  .containerSkill .row {
+    flex-direction: column-reverse;
+  }
 
-    .containerCta button {
-        background-color: white;
-        color: #5e50a1;
-        height: 5.5rem;
-        border: 2px solid #5e50a1;
-    }
+  .containerCta button {
+    background-color: white;
+    color: #5e50a1;
+    height: 5.5rem;
+    border: 2px solid #5e50a1;
+  }
 }

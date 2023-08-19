@@ -15,9 +15,10 @@ const Footer = () => {
                 <img src={logo} alt="img" />
                 <div className="py-4">
                   <p className="m-0">
-                    Tempatnya mencari pekerja yang multitalenta <br />
-                    Kerja dibawah tekanan dan gaji dibawah umr <br />
-                    Cucunya kakek zeus
+                    Bergabunglah dengan tim kami yang berdedikasi untuk meraih
+                    kesuksesan bersama, <br />
+                    Masa depan penuh potensi ada di ujung jari Anda, <br />
+                    Jadilah bagian dari perjalanan kami hari ini.
                   </p>
                 </div>
               </div>

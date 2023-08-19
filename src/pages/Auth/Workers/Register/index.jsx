@@ -1,9 +1,9 @@
-import React from 'react';
-import Pict from '../../../../assets/img/Mask Group.png';
-import Uppict from '../../../../assets/img/up.png';
-import Logo from '../../../../assets/img/Logo.svg';
+// import React from 'react';
+import Pict from "../../../../assets/img/Mask Group.png";
+import Uppict from "../../../../assets/img/up.png";
+import Logo from "../../../../assets/img/Logo.svg";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
@@ -24,7 +24,7 @@ export default function Register() {
               <div className="upback position-absolute">
                 <img
                   src={Uppict}
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                   className="pt-5 pb-5"
                 />
               </div>
@@ -32,7 +32,7 @@ export default function Register() {
                 src={Pict}
                 alt="LoginPict"
                 className="pt-5 pb-5"
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
               />
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function Register() {
                 <div className="confirm d-flex justify-content-center">
                   <p>Anda Sudah Punya Akun?</p>
                   <Link
-                    to={'/login-work'}
+                    to={"/login-work"}
                     className="ms-1 text-decoration-none text-warning"
                   >
                     Masuk Disini
