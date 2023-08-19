@@ -91,8 +91,8 @@ body {
 }
 
 .form-focus:focus {
-  border-color: #5e50a1;
-  box-shadow: 0 0 5px #34296b;
+  border-color: #5e50a1 !important;
+  box-shadow: 0 0 5px #34296b !important;
 }
 
 /* Chat page  */
