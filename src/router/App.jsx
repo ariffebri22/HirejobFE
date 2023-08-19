@@ -14,6 +14,7 @@ import RegisterWork from '../pages/Auth/Workers/Register';
 import ResetPass from '../pages/Auth/Password/ResetPasswordEmail';
 import Otp from '../pages/Auth/Password/ResetPasswordOTP';
 import ConfirmPass from '../pages/Auth/Password/ResetConfirmPassword';
+import EditWorker from '../pages/Profile/EditWorkers';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/reset" element={<ResetPass />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/confirm" element={<ConfirmPass />} />
+        <Route path="/edt-worker" element={<EditWorker />} />
       </Routes>
     </Router>
   );
