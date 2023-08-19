@@ -60,8 +60,8 @@ const Home = () => {
             <Navbar />
             <section id="home">
                 <div className="container containerHome">
-                    <div className="row d-inline-flex justify-content-center">
-                        <div className="col-lg-5 col-md-12 content">
+                    <div className="row d-inline-flex justify-content-between">
+                        <div className="col-lg-5 col-md-12 content mt-5">
                             <h1>Talenta terbaik negri untuk perubahan revolusi 4.0</h1>
                             <p>Bersama kami, temukan kesempatan untuk menggapai karir impian anda!</p>
                             <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 text-light">
