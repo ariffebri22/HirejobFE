@@ -189,7 +189,7 @@ const Index = () => {
               </div>
             </Col>
           </Row>
-          <div className="mt  -5">
+          <div className="mt-5">
             <Footer />
           </div>
         </Container>

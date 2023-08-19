@@ -101,3 +101,17 @@ body {
 .user-card.active {
   --user-card-background: #fbb017;
 }
+
+/* editprofile rekruiter */
+
+.picture {
+  height: 150px;
+  width: 150px;
+  background: #e5e5e5;
+  border-radius: 100%;
+  border: none;
+}
+
+.input-edit {
+  display: none;
+}
