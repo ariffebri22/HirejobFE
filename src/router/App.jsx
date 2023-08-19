@@ -1,15 +1,23 @@
-import { Fragment } from "react";
-// import Hire from "../pages/Home/Hire/index";
-// import ChatPage from "../pages/Chat/index";
-// import Portfolio from "../pages/Home/Portfolio/index";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../pages/Home/LandingPage";
+import Portfolio from "../pages/Home/Portfolio/index";
 import EditRecruiter from "../pages/Profile/EditRecruiter/index";
-import "../style/style.css";
+import Hire from "../pages/Home/Hire/index";
+import Sort from "../pages/Home/Sort/index";
+import Chat from "../pages/Chat/index";
 
 function App() {
   return (
-    <Fragment>
-      <EditRecruiter />
-    </Fragment>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/edit-recruiter" element={<EditRecruiter />} />
+        <Route path="/hire" element={<Hire />} />
+        <Route path="/sort" element={<Sort />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+    </Router>
   );
 }
 
