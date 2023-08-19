@@ -505,7 +505,7 @@ const Home = () => {
             <section id="cta">
                 <div className="container containerCta">
                     <div className="row d-flex justify-content-center">
-                        <div className="col-11 ">
+                        <div className="col-11 mb-5">
                             <div className="divcta d-flex align-items-center justify-content-between">
                                 <h1 className="text-light ms-5">Get your future with us</h1>
                                 <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 me-5">
