@@ -1,14 +1,46 @@
 // import React from "react";
-import Pict from "../../../../assets/img/Mask Group.png";
-import Uppict from "../../../../assets/img/up.png";
-import Logo from "../../../../assets/img/Logo.svg";
-
-import { Link } from "react-router-dom";
-
+import Pict from '../../../../assets/img/Mask Group.png';
+import Uppict from '../../../../assets/img/up.png';
+import Logo from '../../../../assets/img/Logo.svg';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogin } from '../../../../store/action/auth';
+import { useState } from 'react';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [inputData, setInputData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const postData = (e) => {
+    e.preventDefault();
+
+    dispatch(authLogin(inputData, navigate));
+  };
+
+  const onChange = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <div className="container">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          transition={Bounce}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <div className="row">
           <div className="col-md-6">
             <div className="left-side position-relative">
@@ -24,7 +56,7 @@ export default function Login() {
               <div className="upback position-absolute">
                 <img
                   src={Uppict}
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   className="pt-5 pb-5"
                 />
               </div>
@@ -32,7 +64,7 @@ export default function Login() {
                 src={Pict}
                 alt="LoginPict"
                 className="pt-5 pb-5"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               />
             </div>
           </div>
@@ -45,7 +77,7 @@ export default function Login() {
                   euismod ipsum et dui rhoncus auctor.
                 </p>
               </div>
-              <form className="">
+              <form onSubmit={postData}>
                 <div className="mb-4">
                   <label
                     htmlFor="exampleInputEmail1"
@@ -55,6 +87,9 @@ export default function Login() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={inputData.email}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan Email"
                   />
@@ -68,6 +103,9 @@ export default function Login() {
                   </label>
                   <input
                     type="password"
+                    name="password"
+                    value={inputData.password}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan Kata Sandi"
                   />
@@ -87,7 +125,7 @@ export default function Login() {
                 <div className="confirm d-flex justify-content-center">
                   <p>Anda Belum Punya Akun?</p>
                   <Link
-                    to={"/register-work"}
+                    to={'/register-work'}
                     className="ms-1 text-decoration-none text-warning"
                   >
                     Daftar Disini
