@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import logo from "../../assets/img/logo.svg";
+import logo from "../../assets/img/logo-second.png";
 
 const Footer = () => {
   return (
@@ -12,7 +12,13 @@ const Footer = () => {
           <Row>
             <Col md={12} className="d-flex align-items-center mt-4">
               <div>
-                <img src={logo} alt="img" />
+                <img
+                  src={logo}
+                  alt="img"
+                  className="object-fit-cover"
+                  width={150}
+                  height={40}
+                />
                 <div className="py-4">
                   <p className="m-0">
                     Bergabunglah dengan tim kami yang berdedikasi untuk meraih
