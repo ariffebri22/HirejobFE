@@ -1,15 +1,29 @@
 // import React from 'react';
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
-import User from "../../../assets/img/user.svg";
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
+import User from '../../../assets/img/user.svg';
+import { updateProfile } from '../../../store/action/profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate,useParams } from 'react-router-dom';
+import { Slide, toast, ToastContainer } from 'react-toastify';
+import { useState } from 'react';
 
 const EditWorker = () => {
+  const {userId} = useParams()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {data, isLoading, isError} = useSelector((state) => state.profileReducer)
+  const [image, setImage] = useState(null)
+  const [inputData, setInputData] = useState({
+    
+  })
+
   return (
     <div>
       <Navbar />
       <div
         className="container-fluid"
-        style={{ backgroundColor: "#5E50A1", width: "100%", height: "300px" }}
+        style={{ backgroundColor: '#5E50A1', width: '100%', height: '300px' }}
       >
         <div className="container">
           <div className="row mb-5">
@@ -31,7 +45,7 @@ const EditWorker = () => {
                           type="file"
                           name="photo"
                           className="form-control"
-                          style={{ display: "none" }}
+                          style={{ display: 'none' }}
                         />
                       </label>
                     </div>
@@ -52,13 +66,13 @@ const EditWorker = () => {
               </div>
               <button
                 className="btn text-light w-100 mt-4"
-                style={{ backgroundColor: "#5E50A1" }}
+                style={{ backgroundColor: '#5E50A1' }}
               >
                 Simpan
               </button>
               <button
                 className="btn text-light w-100 mt-4"
-                style={{ backgroundColor: "#5E50A1" }}
+                style={{ backgroundColor: '#5E50A1' }}
               >
                 Batal
               </button>
@@ -276,7 +290,7 @@ const EditWorker = () => {
                     </label>
                     <div
                       className="edit d-flex justify-content-center rounded"
-                      style={{ backgroundColor: "#e2e5ed", height: "200px" }}
+                      style={{ backgroundColor: '#e2e5ed', height: '200px' }}
                     >
                       <label className="btn d-flex h-100 justify-content-center align-items-center btn-lg text-muted ">
                         Upload
@@ -284,12 +298,13 @@ const EditWorker = () => {
                           type="file"
                           name="photo"
                           className="form-control"
-                          style={{ display: "none" }}
+                          style={{ display: 'none' }}
                         />
                       </label>
-                      
                     </div>
-                    <button className="btn btn-warning text-light mt-5 w-100">Tambah Portofolio</button>
+                    <button className="btn btn-warning text-light mt-5 w-100">
+                      Tambah Portofolio
+                    </button>
                   </form>
                 </div>
               </div>
