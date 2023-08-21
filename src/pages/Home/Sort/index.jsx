@@ -12,7 +12,9 @@ const Index = () => {
   return (
     <Fragment>
       <Navi />
-      <Head />
+      <div style={{ marginTop: "55px" }}>
+        <Head />
+      </div>
       {/* Search bar */}
       <Container className="my-5">
         <Row>
