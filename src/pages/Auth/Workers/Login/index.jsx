@@ -1,14 +1,46 @@
-import React from 'react';
+// import React from "react";
 import Pict from '../../../../assets/img/Mask Group.png';
 import Uppict from '../../../../assets/img/up.png';
 import Logo from '../../../../assets/img/Logo.svg';
-
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLogin } from '../../../../store/action/auth';
+import { useState } from 'react';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [inputData, setInputData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const postData = (e) => {
+    e.preventDefault();
+
+    dispatch(authLogin(inputData, navigate));
+  };
+
+  const onChange = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <div className="container">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          transition={Bounce}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <div className="row">
           <div className="col-md-6">
             <div className="left-side position-relative">
@@ -45,27 +77,36 @@ export default function Login() {
                   euismod ipsum et dui rhoncus auctor.
                 </p>
               </div>
-              <form className="">
-                <div class="mb-4">
-                  <label for="exampleInputEmail1" class="form-label text-muted">
+              <form onSubmit={postData}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="exampleInputEmail1"
+                    className="form-label text-muted"
+                  >
                     Email address
                   </label>
                   <input
                     type="email"
-                    class="form-control"
+                    name="email"
+                    value={inputData.email}
+                    onChange={onChange}
+                    className="form-control"
                     placeholder="Masukkan Email"
                   />
                 </div>
-                <div class="">
+                <div className="">
                   <label
-                    for="exampleInputPassword1"
-                    class="form-label text-muted"
+                    htmlFor="exampleInputPassword1"
+                    className="form-label text-muted"
                   >
                     Kata Sandi
                   </label>
                   <input
                     type="password"
-                    class="form-control"
+                    name="password"
+                    value={inputData.password}
+                    onChange={onChange}
+                    className="form-control"
                     placeholder="Masukkan Kata Sandi"
                   />
                 </div>
@@ -77,7 +118,7 @@ export default function Login() {
 
                 <button
                   type="submit"
-                  class="btn btn-warning w-100 mb-4 text-light"
+                  className="btn btn-warning w-100 mb-4 text-light"
                 >
                   Masuk
                 </button>

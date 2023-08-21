@@ -19,7 +19,7 @@ const Index = () => {
         style={{ height: "270px", backgroundColor: "#5e50a1" }}
       ></div>
       <div className="position-absolute w-100" style={{ top: "150px" }}>
-        <Container fluid>
+        <Container>
           <Row>
             <Col md={4} className="p-5">
               <div style={{ backgroundColor: "white" }} className="rounded p-3">
@@ -99,7 +99,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -110,7 +110,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -121,7 +121,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -133,7 +133,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -144,7 +144,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -155,7 +155,7 @@ const Index = () => {
                     <img
                       src={portfolio}
                       alt="portfolio"
-                      width={250}
+                      width={240}
                       height={150}
                     />
                     <p className="d-flex justify-content-center">
@@ -189,10 +189,8 @@ const Index = () => {
               </div>
             </Col>
           </Row>
-          <div className="mt-5">
-            <Footer />
-          </div>
         </Container>
+        <Footer />
       </div>
     </Fragment>
   );
