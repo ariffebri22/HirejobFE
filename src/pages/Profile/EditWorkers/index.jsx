@@ -1,9 +1,23 @@
 // import React from 'react';
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
-import User from "../../../assets/img/user.svg";
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
+import User from '../../../assets/img/user.svg';
+import { updateProfile } from '../../../store/action/profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate,useParams } from 'react-router-dom';
+import { Slide, toast, ToastContainer } from 'react-toastify';
+import { useState } from 'react';
 
 const EditWorker = () => {
+  const {userId} = useParams()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {data, isLoading, isError} = useSelector((state) => state.profileReducer)
+  const [image, setImage] = useState(null)
+  const [inputData, setInputData] = useState({
+    
+  })
+
   return (
     <div>
       <Navbar />
