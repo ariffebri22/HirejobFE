@@ -1,6 +1,6 @@
 import Pict from "../../../../assets/img/Mask Group.png";
 import Uppict from "../../../../assets/img/up.png";
-import Logo from "../../../../assets/img/Logo.svg";
+import Logo from "../../../../assets/img/logo-second.png";
 
 // import { Link } from 'react-router-dom';
 
