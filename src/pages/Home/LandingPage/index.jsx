@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import Navbar from '../../../components/Navbar';
-import Footer from '../../../components/Footer';
-import HomeImg from '../../../assets/img/home-img.png';
-import WhyImg from '../../../assets/img/why-img.png';
-import SkillImg from '../../../assets/img/skill-img.png';
-import Fatah from '../../../assets/img/fatah-img.jpeg';
-import Atio from '../../../assets/img/atio-img.jpeg';
-import Rangga from '../../../assets/img/rangga-img.jpeg';
-import Langgeng from '../../../assets/img/langgeng-img.jpeg';
-import arif from '../../../assets/img/arif-img.jpeg';
+import React, { useState } from "react";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import HomeImg from "../../../assets/img/home-img.png";
+import WhyImg from "../../../assets/img/why-img.png";
+import SkillImg from "../../../assets/img/skill-img.png";
+import Fatah from "../../../assets/img/fatah-img.jpeg";
+import Atio from "../../../assets/img/atio-img.jpeg";
+import Rangga from "../../../assets/img/rangga-img.jpeg";
+import Langgeng from "../../../assets/img/langgeng-img.jpeg";
+import arif from "../../../assets/img/arif-img.jpeg";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -17,38 +19,38 @@ const Home = () => {
   const cards = [
     {
       img: Fatah,
-      name: 'Alif Miftakhul Fatah',
-      role: 'Frontend Developer',
+      name: "Alif Miftakhul Fatah",
+      role: "Frontend Developer",
       opinion:
-        'Saya sangat menghargai kemudahan navigasi dan tampilan yang bersih di situs perekrutan ini.',
+        "Saya sangat menghargai kemudahan navigasi dan tampilan yang bersih di situs perekrutan ini.",
     },
     {
       img: Langgeng,
-      name: 'Langgeng Kanugrahan',
-      role: 'Backend Developer',
+      name: "Langgeng Kanugrahan",
+      role: "Backend Developer",
       opinion:
-        'Informasi tentang perusahaan dan persyaratan pekerjaan sangat jelas, membantu saya dalam mempersiapkan diri sebelum melamar.',
+        "Informasi tentang perusahaan dan persyaratan pekerjaan sangat jelas, membantu saya dalam mempersiapkan diri sebelum melamar.",
     },
     {
       img: Atio,
-      name: 'Atio Wahyudi Saputra',
-      role: 'Frontend Developer',
+      name: "Atio Wahyudi Saputra",
+      role: "Frontend Developer",
       opinion:
-        'Saya merasa bahwa antarmuka situs ini memudahkan saya dalam melacak proses perekrutan saya.',
+        "Saya merasa bahwa antarmuka situs ini memudahkan saya dalam melacak proses perekrutan saya.",
     },
     {
       img: Rangga,
-      name: 'Rangga Dwiputra',
-      role: 'Backend Developer',
+      name: "Rangga Dwiputra",
+      role: "Backend Developer",
       opinion:
-        'Kemampuan untuk menyimpan pekerjaan yang menarik hati dan mengaksesnya nanti sangat bermanfaat.',
+        "Kemampuan untuk menyimpan pekerjaan yang menarik hati dan mengaksesnya nanti sangat bermanfaat.",
     },
     {
       img: arif,
-      name: 'Arif Febriansyah',
-      role: 'Fullstack Developer',
+      name: "Arif Febriansyah",
+      role: "Fullstack Developer",
       opinion:
-        'Situs yang sangat baik, tidak seperti situs sebelah. Yang menjanjikan pekerjaan, namun disuruh cari sendiri.',
+        "Situs yang sangat baik, tidak seperti situs sebelah. Yang menjanjikan pekerjaan, namun disuruh cari sendiri.",
     },
   ];
 
@@ -67,6 +69,19 @@ const Home = () => {
       <Navbar />
       <section id="home">
         <div className="container containerHome">
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            transition={Bounce}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
           <div className="row d-inline-flex justify-content-between">
             <div className="col-lg-5 col-md-12 content mt-5">
               <h1>Talenta terbaik negri untuk perubahan revolusi 4.0</h1>

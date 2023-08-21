@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <Fragment>
       <Navbar />
-      <Container my-5>
+      <Container style={{ marginTop: "55px" }}>
         <Row>
           <Col col md={4} className="p-5">
             <div style={{ backgroundColor: "#FFFFFF" }}>

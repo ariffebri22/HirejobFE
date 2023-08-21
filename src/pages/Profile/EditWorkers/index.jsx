@@ -23,7 +23,7 @@ const EditWorker = () => {
       <Navbar />
       <div
         className="container-fluid"
-        style={{ backgroundColor: '#5E50A1', width: '100%', height: '300px' }}
+        style={{ backgroundColor: "#5E50A1", width: "100%", height: "300px" }}
       >
         <div className="container">
           <div className="row mb-5">
@@ -45,7 +45,7 @@ const EditWorker = () => {
                           type="file"
                           name="photo"
                           className="form-control"
-                          style={{ display: 'none' }}
+                          style={{ display: "none" }}
                         />
                       </label>
                     </div>
@@ -66,13 +66,13 @@ const EditWorker = () => {
               </div>
               <button
                 className="btn text-light w-100 mt-4"
-                style={{ backgroundColor: '#5E50A1' }}
+                style={{ backgroundColor: "#5E50A1" }}
               >
                 Simpan
               </button>
               <button
                 className="btn text-light w-100 mt-4"
-                style={{ backgroundColor: '#5E50A1' }}
+                style={{ backgroundColor: "#5E50A1" }}
               >
                 Batal
               </button>
@@ -290,7 +290,7 @@ const EditWorker = () => {
                     </label>
                     <div
                       className="edit d-flex justify-content-center rounded"
-                      style={{ backgroundColor: '#e2e5ed', height: '200px' }}
+                      style={{ backgroundColor: "#e2e5ed", height: "200px" }}
                     >
                       <label className="btn d-flex h-100 justify-content-center align-items-center btn-lg text-muted ">
                         Upload
@@ -298,13 +298,10 @@ const EditWorker = () => {
                           type="file"
                           name="photo"
                           className="form-control"
-                          style={{ display: 'none' }}
+                          style={{ display: "none" }}
                         />
                       </label>
                     </div>
-                    <button className="btn btn-warning text-light mt-5 w-100">
-                      Tambah Portofolio
-                    </button>
                   </form>
                 </div>
               </div>
