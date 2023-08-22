@@ -62,7 +62,7 @@ function App() {
                 <Route path="/reset" element={<ResetPass />} />
                 <Route path="/otp" element={<Otp />} />
                 <Route path="/confirm" element={<ConfirmPass />} />
-                <Route path="/edit-worker" element={<EditWorker />} />
+                <Route path="/edit-worker/:id" element={<EditWorker />} />
             </Routes>
         </Router>
     );
