@@ -18,54 +18,54 @@ import EditWorker from "../pages/Profile/EditWorkers";
 import PrivateRoute from "../components/PrivateRoute";
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                    path="/portfolio/:id"
-                    element={
-                        <PrivateRoute>
-                            <Portfolio />
-                        </PrivateRoute>
-                    }
-                />
-                <Route path="/edit-recruiter" element={<EditRecruiter />} />
-                <Route
-                    path="/hire/:id"
-                    element={
-                        <PrivateRoute>
-                            <Hire />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="/sort"
-                    element={
-                        <PrivateRoute>
-                            <Sort />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="/chat"
-                    element={
-                        <PrivateRoute>
-                            <Chat />
-                        </PrivateRoute>
-                    }
-                />
-                <Route path="/login-recruiter" element={<LoginRecruiter />} />
-                <Route path="/register-recruiter" element={<RegisterRecruiter />} />
-                <Route path="/login-work" element={<LoginWork />} />
-                <Route path="/register-work" element={<RegisterWork />} />
-                <Route path="/reset" element={<ResetPass />} />
-                <Route path="/otp" element={<Otp />} />
-                <Route path="/confirm" element={<ConfirmPass />} />
-                <Route path="/edit-worker" element={<EditWorker />} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/portfolio/:id"
+          element={
+            <PrivateRoute>
+              <Portfolio />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/edit-recruiter" element={<EditRecruiter />} />
+        <Route
+          path="/hire/:id"
+          element={
+            <PrivateRoute>
+              <Hire />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/sort"
+          element={
+            <PrivateRoute>
+              <Sort />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <PrivateRoute>
+              <Chat />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/login-recruiter" element={<LoginRecruiter />} />
+        <Route path="/register-recruiter" element={<RegisterRecruiter />} />
+        <Route path="/login-work" element={<LoginWork />} />
+        <Route path="/register-work" element={<RegisterWork />} />
+        <Route path="/reset" element={<ResetPass />} />
+        <Route path="/otp" element={<Otp />} />
+        <Route path="/confirm" element={<ConfirmPass />} />
+        <Route path="/edit-worker" element={<EditWorker />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
