@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/portfolio"
+          path="/portfolio/:id"
           element={
             <PrivateRoute>
               <Portfolio />
@@ -32,7 +32,7 @@ function App() {
         />
         <Route path="/edit-recruiter" element={<EditRecruiter />} />
         <Route
-          path="/hire"
+          path="/hire/"
           element={
             <PrivateRoute>
               <Hire />
