@@ -49,13 +49,12 @@ const Index = () => {
 
   const handleSortChange = async (newSortBy) => {
     if (newSortBy === sortBy) {
-      // If the same sorting option is selected, toggle the direction
       await setSortDirection(sortDirection === "asc");
     } else {
       setSortBy(newSortBy);
-      setSortDirection("asc"); // Reset sorting direction when changing criteria
+      setSortDirection("asc");
     }
-    getData(1); // Re-fetch data with the new sorting
+    getData(1);
   };
 
   const handleNext = useCallback(() => {
@@ -175,7 +174,7 @@ const Index = () => {
                     />
                     <div className="d-flex justify-content-center flex-column">
                       <h5>{item.username}</h5>
-                      <p className="m-0">{item.job_desc}</p>
+                      <p className="m-0">{item.position}</p>
                       <div className="d-flex gap-2">
                         <CiLocationOn size={25} />
                         <p>{item.domicile}</p>
