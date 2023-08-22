@@ -7,6 +7,7 @@ import putProfileEditWorker from "./putProfileEditWorker";
 import postExpReducer from "./postExpReducer";
 import postPortoReducer from "./postPortoReducers";
 import postSkillReducer from "./postSkillReducer";
+import profileHire from "./porfileHire";
 
 const rootReducer = combineReducers({
     authReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     putProfileEditWorker,
     postExpReducer,
     postPortoReducer,
-    postSkillReducer
+    postSkillReducer,
+    profileHire,
 });
 
 export default rootReducer;

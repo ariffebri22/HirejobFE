@@ -12,6 +12,7 @@ import Langgeng from "../../../assets/img/langgeng-img.jpeg";
 import arif from "../../../assets/img/arif-img.jpeg";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,12 +90,14 @@ const Home = () => {
                 Bersama kami, temukan kesempatan untuk menggapai karir impian
                 anda!
               </p>
-              <button
-                type="button"
-                className="btn btn-lg rounded-2 mt-4 fs-6 text-light"
-              >
-                Mulai Dari Sekarang
-              </button>
+              <Link to={"/sort"}>
+                <button
+                  type="button"
+                  className="btn btn-lg rounded-2 mt-4 fs-6 text-light"
+                >
+                  Mulai Dari Sekarang
+                </button>
+              </Link>
             </div>
             <div className="col-lg-5 col-md-12">
               <div className="d-flex flex-column justify-content-center align-items-center">
@@ -659,12 +662,14 @@ const Home = () => {
             <div className="col-11 mb-5">
               <div className="divcta d-flex align-items-center justify-content-between">
                 <h1 className="text-light ms-5">Get your future with us</h1>
-                <button
-                  type="button"
-                  className="btn btn-lg rounded-2 mt-4 fs-6 me-5"
-                >
-                  Mulai Dari Sekarang
-                </button>
+                <Link to={"/sort"}>
+                  <button
+                    type="button"
+                    className="btn btn-lg rounded-2 mt-4 fs-6 me-5"
+                  >
+                    Mulai Dari Sekarang
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
