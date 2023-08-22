@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }) => {
   if (token) {
     return children;
   } else {
-    return <Navigate to="/" />;
+    return <Navigate to="/login-recruiter" />;
   }
 };
 PrivateRoute.propTypes = {

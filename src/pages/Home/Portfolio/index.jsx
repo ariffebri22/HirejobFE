@@ -12,6 +12,7 @@ import { getPortfolio } from "../../../store/action/profile";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import company_logo from "../../../assets/img/company-logo.jpg";
+import { Bars } from "react-loader-spinner";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -36,10 +37,29 @@ const Index = () => {
   }, [dispatch, id, navigate]);
 
   console.log(data[0]?.username);
-
-  const handleHireBtn = () => {
-    navigate(`/hire/${id}`);
-  };
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          paddingLeft: "50px",
+        }}
+      >
+        <Bars
+          height="80"
+          width="80"
+          color="#5e50a1"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   return (
     <Fragment>
@@ -105,13 +125,14 @@ const Index = () => {
                   </div>
                 </div>
                 <div>
-                  <button
-                    onClick={() => handleHireBtn}
-                    className="fw-bold border border-0 rounded py-2 text-white w-100"
-                    style={{ backgroundColor: "#5e50a1" }}
-                  >
-                    Hire
-                  </button>
+                  <Link to={`/hire/${data[0]?.id}`}>
+                    <button
+                      className="fw-bold border border-0 rounded py-2 text-white w-100"
+                      style={{ backgroundColor: "#5e50a1" }}
+                    >
+                      Hire
+                    </button>
+                  </Link>
                 </div>
               </div>
             </Col>
