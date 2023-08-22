@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Fragment, useState, useCallback, useEffect } from "react";
 import Footer from "../../../components/Footer";
 import Head from "../../../components/Header/Index";
@@ -14,6 +15,8 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [sortBy, setSortBy] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
 
   const getData = useCallback(
     (page) => {
@@ -21,26 +24,38 @@ const Index = () => {
         .get(import.meta.env.VITE_BACKEND_URL + `/home`, {
           params: {
             page: page,
-            // limit: 2,
-
+            limit: 3,
             search: searchQuery,
+            sort: sortDirection,
+            order: sortBy,
           },
         })
         .then((res) => {
           console.log(res);
-          setData(res.data.data);
-          // setTotalPage(res.data.pagination.totalPage);
+          setData(res.data);
+          setTotalPage(res.data.pagination.totalPage);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    [searchQuery]
+    [searchQuery, sortBy, sortDirection]
   );
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
     setCurrentPage(1);
     getData(1);
+  };
+
+  const handleSortChange = async (newSortBy) => {
+    if (newSortBy === sortBy) {
+      // If the same sorting option is selected, toggle the direction
+      await setSortDirection(sortDirection === "asc");
+    } else {
+      setSortBy(newSortBy);
+      setSortDirection("asc"); // Reset sorting direction when changing criteria
+    }
+    getData(1); // Re-fetch data with the new sorting
   };
 
   const handleNext = useCallback(() => {
@@ -99,29 +114,30 @@ const Index = () => {
                   </button>
                   <ul className="dropdown-menu">
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSortChange("username")}
+                      >
                         Sortir Berdasarkan Nama
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSortChange("skills_name")}
+                      >
                         Sortir Berdasarkan Skill
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
-                        Sortir Berdasrkan Lokasi
-                      </a>
-                    </li>
-
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Sortir Berdasrkan Freelance
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Sortir Berdasrkan Fulltime
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSortChange("domicile")}
+                      >
+                        Sortir Berdasarkan Lokasi
                       </a>
                     </li>
                   </ul>
@@ -142,7 +158,7 @@ const Index = () => {
         className="my-5 rounded"
         style={{ backgroundColor: "#FFFFFF" }}
       >
-        {data?.map((item, index) => {
+        {data?.data?.map((item, index) => {
           const skillsArray = item.skills_name.split(", ");
 
           return (
@@ -198,28 +214,26 @@ const Index = () => {
       </Container>
       <nav aria-label="Page navigation example" className="mb-5">
         <ul className="pagination justify-content-center gap-3">
-          <li className="page-item">
-            <a className="page-link" href="#">
+          <li className="page-item" onClick={handlePrevious}>
+            <a
+              className="page-link fw-bold text-white border border-0 form-focus"
+              style={{ backgroundColor: "#5e50a1" }}
+              href="#"
+            >
               Previous
             </a>
           </li>
           <li className="page-item">
-            <a className="page-link" href="#">
-              1
+            <a className="page-link form-focus" href="#">
+              {data?.pagination?.pageNow}
             </a>
           </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
+          <li className="page-item" onClick={handleNext}>
+            <a
+              className="page-link fw-bold text-white border border-0 form-focus"
+              style={{ backgroundColor: "#5e50a1" }}
+              href="#"
+            >
               Next
             </a>
           </li>
