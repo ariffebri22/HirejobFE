@@ -5,13 +5,13 @@ const initialState = {
     isError: false,
 };
 
-const postSkillReducer = (state = initialState, action) => {
-    if (action.type === "POST_SKILL_PENDING") {
+const getSkillReducer = (state = initialState, action) => {
+    if (action.type === "GET_SKILL_PENDING") {
         return {
             ...state,
             isLoading: true,
         };
-    } else if (action.type === "POST_SKILL_SUCCESS") {
+    } else if (action.type === "GET_SKILL_SUCCESS") {
         return {
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const postSkillReducer = (state = initialState, action) => {
             errorMessage: "",
             isError: false,
         };
-    } else if (action.type === "POST_SKILL_FAILED") {
+    } else if (action.type === "GET_SKILL_FAILED") {
         return {
             ...state,
             data: null,
@@ -32,4 +32,4 @@ const postSkillReducer = (state = initialState, action) => {
     }
 };
 
-export default postSkillReducer;
+export default getSkillReducer;

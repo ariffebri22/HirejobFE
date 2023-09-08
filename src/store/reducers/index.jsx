@@ -4,10 +4,15 @@ import authRecReducer from "./authRecReducer";
 import profilePortfolio from "./profilePortfolio";
 import getProfileEditWorker from "./getProfileEditWorker";
 import putProfileEditWorker from "./putProfileEditWorker";
-import postExpReducer from "./postExpReducer";
 import postPortoReducer from "./postPortoReducers";
-import postSkillReducer from "./postSkillReducer";
+import putSkillReducer from "./putSkillReducer";
+import getSkillReducer from "./getSkillReducer";
 import profileHire from "./porfileHire";
+import postExpReducer from "./postExpReducer";
+import getExpReducer from "./getExpReducer";
+import deleteExpReducer from "./deleteExpReducer";
+import putExpReducer from "./putExpReducer";
+import getExpUsersReducers from "./getExpUsersReducers";
 
 const rootReducer = combineReducers({
     authReducer,
@@ -17,8 +22,13 @@ const rootReducer = combineReducers({
     putProfileEditWorker,
     postExpReducer,
     postPortoReducer,
-    postSkillReducer,
+    putSkillReducer,
     profileHire,
+    getSkillReducer,
+    getExpReducer,
+    deleteExpReducer,
+    putExpReducer,
+    getExpUsersReducers,
 });
 
 export default rootReducer;

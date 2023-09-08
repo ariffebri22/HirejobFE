@@ -1,108 +1,178 @@
 /* eslint-disable no-unused-vars */
 // import React from 'react';
-import axios from "axios";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import User from "../../../assets/img/user.svg";
-import { updateProfile } from "../../../store/action/profile";
+import { putProfileWorker, getProfileWorker, putSkill, getSkill, getExp, getExpByUsers, deleteExp, putExp, postExp } from "../../../store/action/profile";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
-
-const token = localStorage.getItem("token");
+import { useDispatch, useSelector } from "react-redux";
 
 const EditWorker = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { getProfileEditWorker, putProfileEditWorker, getSkillReducer, getExpReducer, getExpUsersReducers } = useSelector((state) => state);
+    const { data: dataWorker } = getProfileEditWorker;
+    const { data: dataSkill } = getSkillReducer;
+    const { data: dataExp } = getExpReducer;
+    const { data: dataExpUsers } = getExpUsersReducers;
+    const { isLoading: loadingPutWorker } = putProfileEditWorker;
     const [photo, setPhoto] = useState(null);
     const [inputData, setInputData] = useState({
         username: "",
         position: "",
         domicile: "",
         company_work: "",
-        job_desk: "",
+        job_desc: "",
         photo_worker: "",
     });
 
-    const [originalData, setOriginalData] = useState({}); // Untuk menyimpan data asli untuk perbandingan
+    const [inputSkill, setInputSkill] = useState({
+        skills_name: "",
+    });
+
+    const [inputExp, setInputExp] = useState({
+        posisi: "",
+        nama_perusahaan: "",
+        working_start_at: "",
+        working_end_at: "",
+        deskripsi: "",
+    });
+
+    const [originalData, setOriginalData] = useState({});
 
     useEffect(() => {
-        axios
-            .get(import.meta.env.VITE_BACKEND_URL + `/auth/workers/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-                const original = res.data.data[0];
-                setInputData({
-                    username: original.username,
-                    position: original.position,
-                    domicile: original.domicile,
-                    company_work: original.company_work,
-                    job_desk: original.job_desc,
-                    photo_worker: original.photo_worker,
-                });
-                setOriginalData(original);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        dispatch(getProfileWorker(id, navigate));
+        dispatch(getSkill(id, navigate));
+        dispatch(getExpByUsers(id, navigate));
     }, [id]);
 
+    // profile
+
+    useEffect(() => {
+        if (dataWorker && dataWorker.length > 0) {
+            const original = dataWorker[0];
+            setInputData({
+                username: original.username,
+                position: original.position,
+                domicile: original.domicile,
+                company_work: original.company_work,
+                job_desc: original.job_desc,
+                photo_worker: original.photo_worker,
+            });
+            setOriginalData(original);
+        }
+    }, [dataWorker]);
+
     const handleEditPhoto = (event) => {
-        const file = event.target.files[0];
-        setPhoto(file);
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            setInputData((prevData) => ({
-                ...prevData,
-                photo_worker: e.target.result,
-            }));
-        };
-        reader.readAsDataURL(file);
+        const fileInput = event.target;
+        setPhoto(fileInput.files[0]);
     };
 
-    const handleSubmit = (event) => {
+    const handleCancel = (event) => {
         event.preventDefault();
 
-        if (JSON.stringify(inputData) === JSON.stringify(originalData)) {
+        dispatch(getProfileWorker(id));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (JSON.stringify(inputData) === JSON.stringify(dataWorker[0]) && (photo === null || photo === undefined)) {
             toast.warn("Tidak ada data yang diubah");
             return;
         }
 
-        let bodyFormData = new FormData();
+        const bodyFormData = new FormData();
         bodyFormData.append("username", inputData.username);
         bodyFormData.append("position", inputData.position);
         bodyFormData.append("domicile", inputData.domicile);
         bodyFormData.append("company_work", inputData.company_work);
-        bodyFormData.append("job_desc", inputData.job_desk);
+        bodyFormData.append("job_desc", inputData.job_desc);
 
         if (photo) {
-            bodyFormData.append("photo", photo);
+            bodyFormData.append("photo_worker", photo);
+        } else {
+            bodyFormData.append("photo_worker", originalData.photo_worker);
         }
+        console.log(photo);
+        console.log(inputData.photo_worker);
 
-        axios
-            .put(import.meta.env.VITE_BACKEND_URL + `/auth/workers/update/${id}`, bodyFormData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((res) => {
-                console.log(res);
-                toast.success("Ubah data berhasil");
-                setTimeout(() => {
-                    navigate("/profile");
-                }, 3000);
-            })
-            .catch((err) => {
-                console.log(err);
-                toast.error(err.message);
-            });
+        dispatch(putProfileWorker(bodyFormData, id, navigate));
     };
+
+    //skill
+
+    useEffect(() => {
+        if (dataSkill && dataSkill.length > 0) {
+            const skill = dataSkill[0];
+            setInputSkill({
+                skills_name: skill.skills_name,
+            });
+        }
+    }, [dataSkill]);
+
+    const handleSubmitSkill = (event) => {
+        event.preventDefault();
+        dispatch(putSkill(inputSkill, id, navigate));
+    };
+
+    //experience
+
+    const getExperienceId = (idd, navigate) => {
+        dispatch(getExp(idd, navigate));
+    };
+
+    useEffect(() => {
+        if (dataExp) {
+            setInputExp({
+                posisi: dataExp.posisi,
+                nama_perusahaan: dataExp.nama_perusahaan,
+                working_start_at: dataExp.working_start_at,
+                working_end_at: dataExp.working_end_at,
+                deskripsi: dataExp.deskripsi,
+            });
+        }
+    }, [dataExp]);
+
+    const deleteMyExperience = (idd, navigate) => {
+        dispatch(deleteExp(idd, navigate));
+        setTimeout(() => {
+            dispatch(getExpByUsers(id, navigate));
+        }, 1000);
+    };
+
+    const handleInputExperience = (e) => {
+        const { name, value } = e.target;
+        setInputExp((prevInputExp) => ({
+            ...prevInputExp,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmitExperience = (e) => {
+        e.preventDefault();
+        console.log(inputExp);
+        // localStorage.removeItem("idExperience");
+
+        let idd = localStorage.getItem("idExperience");
+        console.log(idd);
+        idd ? dispatch(putExp(inputExp, idd, navigate)) : dispatch(postExp(inputExp, navigate));
+        setInputExp({
+            posisi: "",
+            nama_perusahaan: "",
+            working_start_at: "",
+            working_end_at: "",
+            deskripsi: "",
+        });
+        setTimeout(() => {
+            dispatch(getExpByUsers(id, navigate));
+        }, 1000);
+    };
+
+    //portofolio
 
     return (
         <div>
@@ -115,7 +185,12 @@ const EditWorker = () => {
                                 <div className="card-body">
                                     <div className="content">
                                         <div className="img d-flex justify-content-center">
-                                            <img src={inputData.photo_worker} alt="image-profile" className="img-fluid w-50 rounded-circle" />
+                                            {/* <img src={inputData.photo_worker} alt="image-profile" className="img-fluid w-50 rounded-circle" /> */}
+                                            {photo ? (
+                                                <img src={URL.createObjectURL(photo)} alt="Preview" className="img-fluid w-50 rounded-circle" />
+                                            ) : (
+                                                inputData.photo_worker && <img src={inputData.photo_worker} alt="Preview" className="img-fluid w-50 rounded-circle" />
+                                            )}
                                         </div>
                                         <div className="edit d-flex justify-content-center">
                                             <label className="btn d-flex h-100 justify-content-center align-items-center btn-lg text-muted ">
@@ -142,7 +217,7 @@ const EditWorker = () => {
                             <button className="btn text-light w-100 mt-4" style={{ backgroundColor: "#5E50A1" }} onClick={handleSubmit}>
                                 Simpan
                             </button>
-                            <button className="btn text-light w-100 mt-4" style={{ backgroundColor: "#5E50A1" }}>
+                            <button className="btn text-light w-100 mt-4" style={{ backgroundColor: "#5E50A1" }} onClick={handleCancel}>
                                 Batal
                             </button>
                         </div>
@@ -185,8 +260,8 @@ const EditWorker = () => {
                                                 type="text"
                                                 className="form-control p-3 pb-5"
                                                 placeholder="Tuliskan Deskripsi Singkat"
-                                                value={inputData.job_desk}
-                                                onChange={(e) => setInputData({ ...inputData, job_desk: e.target.value })}
+                                                value={inputData.job_desc}
+                                                onChange={(e) => setInputData({ ...inputData, job_desc: e.target.value })}
                                             />
                                         </div>
                                     </form>
@@ -202,8 +277,16 @@ const EditWorker = () => {
                                             <div className="mt-3">
                                                 <label htmlFor="">Skill</label>
                                                 <div className="form d-flex gap-2">
-                                                    <input type="text" className="form-control" placeholder="Javasript, C++, Python" />
-                                                    <button className="btn btn-warning text-light">Simpan</button>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder="Javasript, C++, Python"
+                                                        value={inputSkill.skills_name}
+                                                        onChange={(e) => setInputSkill({ ...inputSkill, skills_name: e.target.value })}
+                                                    />
+                                                    <button className="btn btn-warning text-light" onClick={handleSubmitSkill}>
+                                                        Simpan
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -215,37 +298,63 @@ const EditWorker = () => {
                                     <div className="card-title">
                                         <h4 className="p-2 border border-0 border-bottom border-2">Pengalaman Kerja</h4>
                                     </div>
-                                    <form action="" className="pb-5 border border-0 border-bottom border-2">
+                                    {getExpUsersReducers.data?.map((experience, index) => (
+                                        <div key={index} className="workExperience mb-3 border border-2 rounded-2 p-2">
+                                            <div>
+                                                <div className="d-flex justify-content-end gap-2">
+                                                    <button onClick={() => getExperienceId(experience.id, navigate)} className="bg-warning rounded p-2 text-light border-0">
+                                                        Edit
+                                                    </button>
+                                                    <button onClick={() => deleteMyExperience(experience.id)} className="bg-danger rounded p-2 text-light border-0">
+                                                        X
+                                                    </button>
+                                                </div>
+                                                <div className="detailExperience d-flex gap-3">
+                                                    <div className="div">
+                                                        <h3 className="text-dark">{experience.posisi}</h3>
+                                                        <p>{experience.nama_perusahaan}</p>
+                                                        <p>
+                                                            {experience.working_start_at} - {experience.working_end_at}
+                                                        </p>
+                                                        <p className="text-dark">{experience.deskripsi}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <form onSubmit={handleSubmitExperience} className="pb-5 border border-0 border-bottom border-2">
                                         <div className="mt-3">
                                             <label htmlFor="" className="text-muted">
                                                 Posisi
                                             </label>
-                                            <input type="text" className="form-control" placeholder="Web Developer" />
+                                            <input type="text" className="form-control" placeholder="Web Developer" name="posisi" value={inputExp.posisi} onChange={handleInputExperience} />
                                         </div>
                                         <div className="mt-3 d-flex gap-2">
                                             <div className="col-md-5 nama text-muted">
                                                 <label htmlFor="">Nama Perusahaan</label>
-                                                <input type="text" className="form-control w-100" placeholder="PT Harus Bisa" />
+                                                <input type="text" className="form-control" placeholder="PT. Harus Bisa" name="nama_perusahaan" value={inputExp.nama_perusahaan} onChange={handleInputExperience} />
                                             </div>
                                             <div className="tanggal">
                                                 <label htmlFor="" className="text-muted">
                                                     Dari Bulan / Tahun
                                                 </label>
-                                                <input type="text" className="form-control" placeholder="Januari 2018" />
+                                                <input type="text" className="form-control" placeholder="01/01/2022" name="working_start_at" value={inputExp.working_start_at} onChange={handleInputExperience} />
                                             </div>
                                             <div className="end text-muted">
                                                 <label htmlFor="">Sampai Bulan / Tahun</label>
-                                                <input type="text" className="form-control" placeholder="Januari 2019" />
+                                                <input type="text" className="form-control" placeholder="02/02/2022" name="working_end_at" value={inputExp.working_end_at} onChange={handleInputExperience} />
                                             </div>
                                         </div>
                                         <div className="mt-3">
                                             <label htmlFor="" className="text-muted">
                                                 Deskripsi Singkat
                                             </label>
-                                            <input type="text" className="form-control pb-5" placeholder="Deskripsi Pekerjaan Anda" />
+                                            <input type="text" className="form-control pb-5" placeholder="Deskripsi Pekerjaan Anda" name="deskripsi" value={inputExp.deskripsi} onChange={handleInputExperience} />
                                         </div>
+                                        <button className="btn btn-warning text-light mt-5 w-100" type="submit">
+                                            Tambah Pengalaman Kerja
+                                        </button>
                                     </form>
-                                    <button className="btn btn-warning text-light mt-5 w-100">Tambah Pengalaman Kerja</button>
                                 </div>
                             </div>
                             <div className="card mt-5">

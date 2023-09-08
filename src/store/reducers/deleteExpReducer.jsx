@@ -1,17 +1,17 @@
 const initialState = {
-    data: [],
+    data: null,
     errorMessage: "",
     isLoading: false,
     isError: false,
 };
 
-const putProfileEditWorkerReducer = (state = initialState, action) => {
-    if (action.type === "PUT_WORKER_PENDING") {
+const deleteExpReducer = (state = initialState, action) => {
+    if (action.type === "DELETE_EXP_PENDING") {
         return {
             ...state,
             isLoading: true,
         };
-    } else if (action.type === "PUT_WORKER_SUCCESS") {
+    } else if (action.type === "DELETE_EXP_SUCCESS") {
         return {
             ...state,
             data: action.payload,
@@ -19,7 +19,7 @@ const putProfileEditWorkerReducer = (state = initialState, action) => {
             errorMessage: "",
             isError: false,
         };
-    } else if (action.type === "PUT_WORKER_FAILED") {
+    } else if (action.type === "DELETE_EXP_FAILED") {
         return {
             ...state,
             data: null,
@@ -32,4 +32,4 @@ const putProfileEditWorkerReducer = (state = initialState, action) => {
     }
 };
 
-export default putProfileEditWorkerReducer;
+export default deleteExpReducer;
