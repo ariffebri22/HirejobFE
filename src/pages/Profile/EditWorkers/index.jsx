@@ -2,24 +2,30 @@
 // import React from 'react';
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { putProfileWorker, getProfileWorker, putSkill, getSkill, getExp, getExpByUsers, deleteExp, putExp, postExp } from "../../../store/action/profile";
+import { putProfileWorker, getProfileWorker, putSkill, getSkill, getExp, getExpByUsers, deleteExp, putExp, postExp, getPorto, getPortoByUsers, deletePorto, putPorto, postPorto } from "../../../store/action/profile";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
+import porto from "../../../assets/img/fakePorto4.png";
+import cloud from "../../../assets/img/cloud.png";
+import upload1 from "../../../assets/img/upload1.png";
+import upload2 from "../../../assets/img/upload2.png";
 
 const EditWorker = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { getProfileEditWorker, putProfileEditWorker, getSkillReducer, getExpReducer, getExpUsersReducers } = useSelector((state) => state);
+    const { getProfileEditWorker, putProfileEditWorker, getSkillReducer, getExpReducer, getExpUsersReducers, getPortoReducer, getPortoUsersReducer } = useSelector((state) => state);
     const { data: dataWorker } = getProfileEditWorker;
     const { data: dataSkill } = getSkillReducer;
     const { data: dataExp } = getExpReducer;
-    const { data: dataExpUsers } = getExpUsersReducers;
+    const { data: dataPorto } = getPortoReducer;
     const { isLoading: loadingPutWorker } = putProfileEditWorker;
     const [photo, setPhoto] = useState(null);
+    const [editPorto, setEditPorto] = useState(null);
+    const [photoPorto, setPhotoPorto] = useState(null);
     const [inputData, setInputData] = useState({
         username: "",
         position: "",
@@ -41,13 +47,27 @@ const EditWorker = () => {
         deskripsi: "",
     });
 
+    const [inputPorto, setInputPorto] = useState({
+        porto_name: "",
+        porto_link: "",
+        porto_type: "",
+        porto_photo: "",
+    });
+
     const [originalData, setOriginalData] = useState({});
 
     useEffect(() => {
         dispatch(getProfileWorker(id, navigate));
         dispatch(getSkill(id, navigate));
         dispatch(getExpByUsers(id, navigate));
+        dispatch(getPortoByUsers(id, navigate));
     }, [id]);
+
+    useEffect(() => {
+        if (dataPorto) {
+            setEditPorto(dataPorto);
+        }
+    }, [dataPorto]);
 
     // profile
 
@@ -173,6 +193,65 @@ const EditWorker = () => {
     };
 
     //portofolio
+
+    const getPortoId = (idd, navigate) => {
+        dispatch(getPorto(idd, navigate));
+    };
+
+    useEffect(() => {
+        console.log(dataPorto);
+        if (dataPorto[0]) {
+            setInputPorto({
+                porto_name: dataPorto[0].porto_name,
+                porto_link: dataPorto[0].porto_link,
+                porto_type: dataPorto[0].porto_type,
+                porto_photo: dataPorto[0].porto_photo,
+            });
+        }
+        console.log(inputPorto);
+    }, [dataPorto]);
+
+    const deleteMyPorto = (idd, navigate) => {
+        dispatch(deletePorto(idd, navigate));
+        setTimeout(() => {
+            dispatch(getPortoByUsers(id, navigate));
+        }, 1000);
+    };
+
+    const handleEditPhotoPorto = (event) => {
+        setPhotoPorto(event.target.files[0]);
+        setInputPorto({ ...inputPorto, porto_photo: URL.createObjectURL(event.target.files[0]) });
+    };
+
+    const handleInputPorto = (e) => {
+        const { name, value } = e.target;
+        setInputPorto((prevInputPorto) => ({
+            ...prevInputPorto,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmitPorto = (e) => {
+        e.preventDefault();
+        console.log(inputPorto);
+
+        const bodyFormData = new FormData();
+        bodyFormData.append("porto_name", inputPorto.porto_name);
+        bodyFormData.append("porto_link", inputPorto.porto_link);
+        bodyFormData.append("porto_type", inputPorto.porto_type);
+        bodyFormData.append("porto_photo", photoPorto);
+
+        let idd = localStorage.getItem("idPorto");
+        console.log(idd);
+        idd ? dispatch(putPorto(bodyFormData, idd, navigate, id)) : dispatch(postPorto(bodyFormData, navigate, id));
+
+        setInputPorto({
+            porto_name: "",
+            porto_link: "",
+            porto_type: "",
+            porto_photo: "",
+        });
+    };
 
     return (
         <div>
@@ -362,41 +441,120 @@ const EditWorker = () => {
                                     <div className="card-title">
                                         <h4 className="p-2 border border-0 border-bottom border-2">Portofolio</h4>
                                     </div>
-                                    <form action="">
-                                        <div className="mt-3 text-muted">
-                                            <label htmlFor="">Nama Aplikasi</label>
-                                            <input type="text" className="form-control" placeholder="Masukkan Nama Aplikasi" />
+                                    {getPortoUsersReducer.data?.map((portofolio, index) => (
+                                        <div key={index} className="workExperience mb-3 border border-2 rounded-2 p-2">
+                                            <div>
+                                                <div className="d-flex justify-content-end gap-2">
+                                                    <button onClick={() => getPortoId(portofolio.id, navigate)} className="bg-warning rounded p-2 text-light border-0">
+                                                        Edit
+                                                    </button>
+                                                    <button onClick={() => deleteMyPorto(portofolio.id)} className="bg-danger rounded p-2 text-light border-0">
+                                                        X
+                                                    </button>
+                                                </div>
+                                                <div className="detailExperience d-flex gap-3">
+                                                    <div className="d-flex">
+                                                        <img src={portofolio.porto_photo} alt="porto" width={150} height={120} className="rounded-2" />
+                                                        <div className="ms-2 pt-2">
+                                                            <h5 className="text-dark">{portofolio.porto_name}</h5>
+                                                            <p className="text-muted">{portofolio.porto_type}</p>
+                                                            <p className="text-dark" style={{ fontSize: 12 }}>
+                                                                {portofolio.porto_link}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="mt-3 text-muted">
-                                            <label htmlFor="">Link Repository</label>
-                                            <input type="text" className="form-control" placeholder="Masukkan Link Repository" />
+                                    ))}
+                                    <form onSubmit={handleSubmitPorto} className="pb-5 border border-0 border-bottom border-2">
+                                        <div className="mt-3">
+                                            <label htmlFor="" className="text-muted">
+                                                Nama Aplikasi
+                                            </label>
+                                            <input type="text" className="form-control" placeholder="Masukan nama aplikasi" name="porto_name" value={inputPorto.porto_name} onChange={handleInputPorto} />
                                         </div>
-                                        <div className="mt-3 text-muted">
-                                            <label htmlFor="">Type Portofolio</label>
-                                            <div className="radio d-flex gap-4">
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                                    <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                        <div className="mt-3">
+                                            <label htmlFor="" className="text-muted">
+                                                Link Repository
+                                            </label>
+                                            <input type="text" className="form-control" placeholder="Masukan link repository" name="porto_link" value={inputPorto.porto_link} onChange={handleInputPorto} />
+                                        </div>
+                                        <div className="d-flex flex-column">
+                                            <p className="text-muted mt-3">Type portofolio</p>
+                                            <div className="d-flex">
+                                                <div className="input d-flex gap-2 me-3 ">
+                                                    <input
+                                                        type="radio"
+                                                        name="porto_type"
+                                                        value={"Aplikasi Mobile"}
+                                                        checked={inputPorto.porto_type === "Aplikasi Mobile"}
+                                                        onChange={handleInputPorto}
+                                                        id="mobile"
+                                                        className="bg-light border-1 p-2"
+                                                    />
+                                                    <label className="text-dark" htmlFor="mobile">
                                                         Aplikasi Mobile
                                                     </label>
                                                 </div>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                                                    <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                        Aplikasi Web
+                                                <div className="input d-flex gap-2">
+                                                    <input
+                                                        type="radio"
+                                                        name="porto_type"
+                                                        value={"Aplikasi Website"}
+                                                        checked={inputPorto.porto_type === "Aplikasi Website"}
+                                                        onChange={handleInputPorto}
+                                                        id="website"
+                                                        className="bg-light border-1 p-2"
+                                                    />
+                                                    <label className="text-dark" htmlFor="website">
+                                                        Aplikasi Website
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <label htmlFor="" className="mt-5 text-muted">
-                                            Upload Gambar
-                                        </label>
-                                        <div className="edit d-flex justify-content-center rounded" style={{ backgroundColor: "#e2e5ed", height: "200px" }}>
-                                            <label className="btn d-flex h-100 justify-content-center align-items-center btn-lg text-muted ">
-                                                Upload
-                                                <input type="file" name="photo" className="form-control" style={{ display: "none" }} />
+                                        <div className="input d-flex flex-column w-100">
+                                            <label htmlFor="description" className="text-muted mt-3 mb-1">
+                                                Upload gambar
+                                            </label>
+                                            <label
+                                                htmlFor="file"
+                                                style={{
+                                                    height: "300px",
+                                                    borderStyle: "dashed",
+                                                    backgroundImage: `url(${inputPorto.porto_photo})`,
+                                                    backgroundSize: "cover",
+                                                    backgroundPosition: "center",
+                                                    backgroundRepeat: "no-repeat",
+                                                }}
+                                                className="d-flex flex-column rounded w-100 justify-content-center border-dash align-items-center position-relative" // Tambahkan class position-relative
+                                            >
+                                                {/* Bagian ini hanya akan tampil jika backgroundImage tidak ada */}
+                                                {(!inputPorto.porto_photo || inputPorto.porto_photo === "") && (
+                                                    <div className="d-flex flex-column justify-content-center align-items-center">
+                                                        <img style={{ height: "100px", width: "100px" }} src={cloud} alt="cloud" />
+                                                        <p>Drag & Drop untuk Upload Gambar Aplikasi Mobile</p>
+                                                        <p>Atau cari untuk mengupload file dari direktorimu.</p>
+                                                        <div className="d-flex gap-3">
+                                                            <div className="d-flex align-items-center gap-1">
+                                                                <img style={{ height: "30px", width: "30px" }} src={upload1} alt="upload" />
+                                                                <p style={{ fontSize: "10px", marginBottom: "0" }}>High-Res Image PNG, JPG or GIF</p>
+                                                            </div>
+                                                            <div className="d-flex align-items-center gap-1">
+                                                                <img style={{ height: "30px", width: "30px" }} src={upload2} alt="upload" />
+                                                                <p style={{ fontSize: "10px", marginBottom: "0" }}>Size 1080x1920 or 600x800</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Input file yang selalu ada, tetapi hanya tampil ketika backgroundImage tidak ada */}
+                                                <input type="file" onChange={handleEditPhotoPorto} className="d-none" id="file" />
                                             </label>
                                         </div>
+                                        <button className="btn btn-warning text-light mt-5 w-100" type="submit">
+                                            Tambah Portofolio
+                                        </button>
                                     </form>
                                 </div>
                             </div>

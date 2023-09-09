@@ -124,32 +124,6 @@ export const putProfileWorker = (data, id, navigate) => async (dispatch) => {
     }
 };
 
-export const postPorto = (data, navigate) => async (dispatch) => {
-    try {
-        const headers = {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
-        };
-
-        dispatch({ type: "POST_PORTO_PENDING" });
-        const result = await axios.post(import.meta.env.VITE_BACKEND_URL + `/porto/workers`, data, { headers });
-        dispatch({ payload: result.data.data, type: "POST_PORTO_SUCCESS" });
-    } catch (err) {
-        console.error("error", err);
-        dispatch({ payload: err.response, type: "POST_PORTO_FAILED" });
-
-        if (err?.response?.data?.message === "Login session expired, please login again") {
-            toast.error(err.response.data.message, {
-                autoClose: 3000,
-            });
-            setTimeout(() => {
-                localStorage.clear();
-                navigate("/login");
-            }, 4000);
-        }
-    }
-};
-
 export const putSkill = (data, id, navigate) => async (dispatch) => {
     try {
         const headers = {
@@ -322,6 +296,140 @@ export const deleteExp = (id, navigate) => async (dispatch) => {
     } catch (err) {
         console.error("error", err);
         dispatch({ payload: err.response, type: "DELETE_EXP_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const postPorto = (data, navigate, id) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+        };
+
+        dispatch({ type: "POST_PORTO_PENDING" });
+        const result = await axios.post(import.meta.env.VITE_BACKEND_URL + `/porto/workers`, data, { headers });
+        dispatch({ payload: result.data.data, type: "POST_PORTO_SUCCESS" });
+        toast.success("Tambah Portofolio Berhasil!");
+        dispatch(getPortoByUsers(id, navigate));
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "POST_PORTO_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const getPorto = (id, navigate) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+
+        dispatch({ type: "GET_PORTO_PENDING" });
+        const result = await axios.get(import.meta.env.VITE_BACKEND_URL + `/porto/workers/${id}`, { headers });
+        localStorage.setItem("idPorto", id);
+        dispatch({ payload: result.data.data, type: "GET_PORTO_SUCCESS" });
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "GET_PORTO_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const getPortoByUsers = (id, navigate) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+
+        dispatch({ type: "GET_PORTO_USERS_PENDING" });
+        const result = await axios.get(import.meta.env.VITE_BACKEND_URL + `/porto/users/${id}`, { headers });
+        dispatch({ payload: result.data.data, type: "GET_PORTO_USERS_SUCCESS" });
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "GET_PORTO_USERS_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const putPorto = (data, id, navigate, idd) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+        };
+
+        dispatch({ type: "PUT_PORTO_PENDING" });
+        const result = await axios.put(import.meta.env.VITE_BACKEND_URL + `/porto/workers/update/${id}`, data, { headers });
+        localStorage.removeItem("idPorto");
+        dispatch({ payload: result.data.data, type: "PUT_PORTO_SUCCESS" });
+        toast.success("Ubah Portofolio berhasil");
+        dispatch(getPortoByUsers(idd, navigate));
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "PUT_PORTO_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const deletePorto = (id, navigate) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+
+        dispatch({ type: "DELETE_PORTO_PENDING" });
+        const result = await axios.delete(import.meta.env.VITE_BACKEND_URL + `/porto/workers/delete/${id}`, { headers });
+        dispatch({ payload: result.data.data, type: "DELETE_PORTO_SUCCESS" });
+        toast.success("Delete Potofolio berhasil");
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "DELETE_PORTO_FAILED" });
 
         if (err?.response?.data?.message === "Login session expired, please login again") {
             toast.error(err.response.data.message, {
