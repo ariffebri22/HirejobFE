@@ -17,6 +17,8 @@ import getPortoReducer from "./getPortoReducer";
 import deletePortoReducer from "./deletePortoReducer";
 import putPortoReducer from "./putPortoReducer";
 import getPortoUsersReducer from "./getPortoUsersReducer";
+import getProfileEditRekruter from "./getProfileEditRekruter";
+import putProfileEditRekruter from "./putProfileEditRekruter";
 
 const rootReducer = combineReducers({
     authReducer,
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
     deletePortoReducer,
     putPortoReducer,
     getPortoUsersReducer,
+    getProfileEditRekruter,
+    putProfileEditRekruter,
 });
 
 export default rootReducer;

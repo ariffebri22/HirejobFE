@@ -442,3 +442,56 @@ export const deletePorto = (id, navigate) => async (dispatch) => {
         }
     }
 };
+
+export const putProfileRekruter = (data, id, navigate) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+        };
+
+        dispatch({ type: "PUT_REKRUTER_PENDING" });
+        const result = await axios.put(import.meta.env.VITE_BACKEND_URL + `/auth/recruiter/update/${id}`, data, { headers });
+        dispatch({ payload: result.data.data, type: "PUT_REKRUTER_SUCCESS" });
+        toast.success("Ubah Profile berhasil");
+        dispatch(getProfileRekruter(id, navigate));
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "PUT_REKRUTER_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};
+
+export const getProfileRekruter = (id, navigate) => async (dispatch) => {
+    try {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+
+        dispatch({ type: "GET_EDIT_REKRUTER_PENDING" });
+        const result = await axios.get(import.meta.env.VITE_BACKEND_URL + `/auth/recruiter/${id}`, { headers });
+        dispatch({ payload: result.data.data, type: "GET_EDIT_REKRUTER_SUCCESS" });
+    } catch (err) {
+        console.error("error", err);
+        dispatch({ payload: err.response, type: "GET_EDIT_REKRUTER_FAILED" });
+
+        if (err?.response?.data?.message === "Login session expired, please login again") {
+            toast.error(err.response.data.message, {
+                autoClose: 3000,
+            });
+            setTimeout(() => {
+                localStorage.clear();
+                navigate("/login");
+            }, 4000);
+        }
+    }
+};

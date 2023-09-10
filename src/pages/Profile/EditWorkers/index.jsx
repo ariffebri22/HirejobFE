@@ -548,7 +548,6 @@ const EditWorker = () => {
                                                     </div>
                                                 )}
 
-                                                {/* Input file yang selalu ada, tetapi hanya tampil ketika backgroundImage tidak ada */}
                                                 <input type="file" onChange={handleEditPhotoPorto} className="d-none" id="file" />
                                             </label>
                                         </div>

@@ -30,7 +30,6 @@ function App() {
                         </PrivateRoute>
                     }
                 />
-                <Route path="/edit-recruiter" element={<EditRecruiter />} />
                 <Route
                     path="/hire/:id"
                     element={
@@ -63,6 +62,7 @@ function App() {
                 <Route path="/otp" element={<Otp />} />
                 <Route path="/confirm" element={<ConfirmPass />} />
                 <Route path="/edit-worker/:id" element={<EditWorker />} />
+                <Route path="/edit-recruiter/:id" element={<EditRecruiter />} />
             </Routes>
         </Router>
     );
