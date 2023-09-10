@@ -1,15 +1,66 @@
-import { Fragment } from "react";
+/* eslint-disable no-unused-vars */
+import { Fragment, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../../components/Navbar/index";
 import Footer from "../../../components/Footer/index";
 import { Col, Container, Row } from "react-bootstrap";
-import user from "../../../assets/img/user.svg";
-import portfolio from "../../../assets/img/portfolio.png";
 import { CiLocationOn } from "react-icons/ci";
 import "../../../style/style.css";
 import { FiGithub, FiGitlab } from "react-icons/fi";
 import { BsInstagram, BsEnvelope } from "react-icons/bs";
+import { getPortfolio } from "../../../store/action/profile";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import company_logo from "../../../assets/img/company-logo.jpg";
+import { Bars } from "react-loader-spinner";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { profilePortfolio } = useSelector((state) => state);
+  const { isError, errorMessage, isLoading, data } = profilePortfolio;
+
+  useEffect(() => {
+    if (isError && errorMessage) {
+      toast.warn(errorMessage, {
+        hideProgressBar: true,
+        autoClose: 2000,
+      });
+    } else if (isError && !errorMessage) {
+      toast.error("Something wrong");
+    }
+  }, [isError, errorMessage]);
+
+  useEffect(() => {
+    dispatch(getPortfolio(id, navigate));
+  }, [dispatch, id, navigate]);
+
+  console.log(data[0]?.username);
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          paddingLeft: "50px",
+        }}
+      >
+        <Bars
+          height="80"
+          width="80"
+          color="#5e50a1"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       <Navbar />
@@ -25,7 +76,7 @@ const Index = () => {
               <div style={{ backgroundColor: "white" }} className="rounded p-3">
                 <div className="d-flex justify-content-center">
                   <img
-                    src={user}
+                    src={data[0]?.photo_worker}
                     alt=""
                     className="rounded-circle object-fit-cover"
                     width={150}
@@ -33,61 +84,55 @@ const Index = () => {
                   />
                 </div>
                 <div className="mt-2">
-                  <h5 className="fw-bold">Harry Maguire</h5>
-                  <p> Web Developer</p>
+                  <h5 className="fw-bold">{data[0]?.username}</h5>
+                  <p>{data[0]?.position}</p>
                 </div>
                 <div className="d-flex gap-2">
                   <CiLocationOn size={25} />
-                  <p>Purwokerto,Jawa Tengah</p>
+                  <p>{data[0]?.domicile}</p>
                 </div>
                 <div style={{ color: "#9EA0A5" }}>
-                  <p>Frelancer</p>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Illo nam provident, repudiandae, voluptatibus quod quam
-                    ducimus minus explicabo a beatae debitis sed adipisci labore
-                    atque veniam commodi omnis dolorum mollitia!
-                  </p>
+                  <p>{data[0]?.company_work}</p>
+                  <p>{data[0]?.job_desc}</p>
                 </div>
                 <div className="my-5">
                   <h5 className="fw-bold">Skill</h5>
                   <div className="d-flex flex-wrap align-items-center gap-3 mt-3">
-                    <span className="skills fw-bold">Javascript</span>
-                    <span className="skills fw-bold">Laravel</span>
-                    <span className="skills fw-bold">PHP</span>
-                    <span className="skills fw-bold">C++</span>
-                    <span className="skills fw-bold">C#</span>
-                    <span className="skills fw-bold">Angular</span>
-                    <span className="skills fw-bold">Java</span>
-                    <span className="skills fw-bold">Ruby</span>
-                    <span className="skills fw-bold">Python</span>
+                    {data[0]?.skills_name &&
+                      data[0].skills_name.split(", ").map((skill, index) => (
+                        <span key={index} className="skills fw-bold">
+                          {skill}
+                        </span>
+                      ))}
                   </div>
                 </div>
                 <div className="py-2" style={{ color: "#9EA0A5" }}>
                   <div className="d-flex gap-2">
                     <BsEnvelope size={25} />
-                    <p>Harymaguire@gmail.com</p>
+                    <p>Email</p>
                   </div>
                   <div className="d-flex gap-2">
                     <BsInstagram size={25} />
-                    <p>@Harry91</p>
+                    <p>Instagram</p>
                   </div>
                   <div className="d-flex gap-2">
                     <FiGithub size={25} />
-                    <p>@Harryymooo</p>
+                    <p>Github</p>
                   </div>
                   <div className="d-flex gap-2">
                     <FiGitlab size={25} />
-                    <p>Harimaguire91</p>
+                    <p>Gitlab</p>
                   </div>
                 </div>
                 <div>
-                  <button
-                    className="fw-bold border border-0 rounded py-2 text-white w-100"
-                    style={{ backgroundColor: "#5e50a1" }}
-                  >
-                    Hire
-                  </button>
+                  <Link to={`/hire/${data[0]?.id}`}>
+                    <button
+                      className="fw-bold border border-0 rounded py-2 text-white w-100"
+                      style={{ backgroundColor: "#5e50a1" }}
+                    >
+                      Hire
+                    </button>
+                  </Link>
                 </div>
               </div>
             </Col>
@@ -95,103 +140,65 @@ const Index = () => {
               <div style={{ backgroundColor: "white" }} className="p-3 rounded">
                 <h4 className="fw-bold m-0">Portofolio</h4>
                 <Row className="p-2">
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      Remainder App
-                    </p>
-                  </Col>
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      Remainder App
-                    </p>
-                  </Col>
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      {" "}
-                      Remainder App
-                    </p>
-                  </Col>
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      Remainder App
-                    </p>
-                  </Col>
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      Remainder App
-                    </p>
-                  </Col>
-                  <Col md={4}>
-                    <img
-                      src={portfolio}
-                      alt="portfolio"
-                      width={240}
-                      height={150}
-                    />
-                    <p className="d-flex justify-content-center">
-                      Remainder App
-                    </p>
-                  </Col>
+                  {data[0]?.portofolio &&
+                    data[0].portofolio.slice(0, 6).map((portfolio, index) => (
+                      <Col key={index} md={4} sm={6} className="">
+                        <div className="text-center h-100">
+                          <img
+                            src={portfolio.porto_photo}
+                            alt="portfolio"
+                            className="img-fluid rounded-3 h-75"
+                          />
+                          <p className="mt-2">{portfolio.porto_name}</p>
+                        </div>
+                      </Col>
+                    ))}
+                </Row>
+                <Row className="p-2">
+                  {data[0]?.portofolio &&
+                    data[0].portofolio.slice(6, 12).map((portfolio, index) => (
+                      <Col key={index} md={4} sm={6} className="">
+                        <div className="text-center">
+                          <img
+                            src={portfolio.porto_photo}
+                            alt="portfolio"
+                            className="img-fluid rounded-3 h-75"
+                          />
+                          <p className="mt-2">{portfolio.porto_name}</p>
+                        </div>
+                      </Col>
+                    ))}
                 </Row>
                 <h4 className="fw-bold my-3">Pengalaman kerja</h4>
-                <div className="d-flex gap-3">
-                  <img
-                    src={portfolio}
-                    alt="experience"
-                    width={84}
-                    height={84}
-                  />
-                  <div>
-                    <h5 className="fw-bold">Engineer</h5>
-                    <p className="m-0">Tokopedia</p>
-                    <p className="m-0" style={{ color: "#9EA0A5" }}>
-                      July 2019 - January 2020 6 Monts
-                    </p>
-                    <p className="my-2">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Delectus, debitis reprehenderit quibusdam laudantium
-                      possimus sint aperiam, itaque temporibus, vero distinctio
-                      odio quasi doloribus suscipit. Explicabo reiciendis eaque
-                      facilis libero eligendi.
-                    </p>
-                  </div>
-                </div>
+                <hr className="linebottom opacity-100" />
+                {data[0]?.experience &&
+                  data[0].experience.map((experience, index) => (
+                    <div key={index} className="d-flex gap-3">
+                      <img
+                        src={company_logo}
+                        alt="experience"
+                        width={84}
+                        height={84}
+                      />
+                      <div>
+                        <h5 className="fw-bold">{experience.posisi}</h5>
+                        <p className="m-0">{experience.nama_perusahaan}</p>
+                        <p className="m-0" style={{ color: "#9EA0A5" }}>
+                          {experience.working_start_at} -{" "}
+                          {experience.working_end_at}
+                        </p>
+                        <p className="my-2">{experience.deskripsi}</p>
+                      </div>
+                      <hr />
+                    </div>
+                  ))}
               </div>
             </Col>
           </Row>
         </Container>
         <Footer />
       </div>
+      <ToastContainer />
     </Fragment>
   );
 };

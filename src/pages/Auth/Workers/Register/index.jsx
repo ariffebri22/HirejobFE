@@ -1,14 +1,52 @@
 // import React from 'react';
-import Pict from "../../../../assets/img/Mask Group.png";
-import Uppict from "../../../../assets/img/up.png";
-import Logo from "../../../../assets/img/Logo.svg";
-
-import { Link } from "react-router-dom";
+import Pict from '../../../../assets/img/Mask Group.png';
+import Uppict from '../../../../assets/img/up.png';
+import Logo from '../../../../assets/img/logo-second.png';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authRegister } from '../.././../../store/action/auth/index';
+import { useState } from 'react';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+// import { useState } from 'react';
 
 export default function Register() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isError, isLoading } = useSelector((state) => state.authReducer);
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await dispatch(authRegister(formData, navigate));
+  };
+
   return (
     <>
       <div className="container">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          transition={Bounce}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <div className="row">
           <div className="col-md-6">
             <div className="left-side position-relative">
@@ -24,7 +62,7 @@ export default function Register() {
               <div className="upback position-absolute">
                 <img
                   src={Uppict}
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   className="pt-5 pb-5"
                 />
               </div>
@@ -32,7 +70,7 @@ export default function Register() {
                 src={Pict}
                 alt="LoginPict"
                 className="pt-5 pb-5"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               />
             </div>
           </div>
@@ -45,11 +83,14 @@ export default function Register() {
                   euismod ipsum et dui rhoncus auctor.
                 </p>
               </div>
-              <form className="">
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label className="form-label text-muted">Nama</label>
                   <input
                     type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukan Nama Panjang"
                   />
@@ -58,6 +99,9 @@ export default function Register() {
                   <label className="form-label text-muted">Email</label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan email"
                   />
@@ -66,6 +110,9 @@ export default function Register() {
                   <label className="form-label text-muted">No Handphone</label>
                   <input
                     type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan No Handphone"
                   />
@@ -74,6 +121,9 @@ export default function Register() {
                   <label className="form-label text-muted">Kata Sandi</label>
                   <input
                     type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan Kata Sandi"
                   />
@@ -84,6 +134,9 @@ export default function Register() {
                   </label>
                   <input
                     type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={onChange}
                     className="form-control"
                     placeholder="Masukkan Kata Sandi"
                   />
@@ -103,7 +156,7 @@ export default function Register() {
                 <div className="confirm d-flex justify-content-center">
                   <p>Anda Sudah Punya Akun?</p>
                   <Link
-                    to={"/login-work"}
+                    to={'/login-work'}
                     className="ms-1 text-decoration-none text-warning"
                   >
                     Masuk Disini

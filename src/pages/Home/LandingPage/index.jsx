@@ -10,9 +10,16 @@ import Atio from "../../../assets/img/atio-img.jpeg";
 import Rangga from "../../../assets/img/rangga-img.jpeg";
 import Langgeng from "../../../assets/img/langgeng-img.jpeg";
 import arif from "../../../assets/img/arif-img.jpeg";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Home = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+    const decodedToken = token ? jwt_decode(token) : null;
 
     const cards = [
         {
@@ -55,18 +62,35 @@ const Home = () => {
         setActiveIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
     };
 
+    const handleNoToken = () => {
+        toast.warn("Please login first");
+    };
+
+    console.log(decodedToken);
+
     return (
         <>
             <Navbar />
             <section id="home">
                 <div className="container containerHome">
+                    <ToastContainer position="top-center" autoClose={2000} hideProgressBar={false} transition={Bounce} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
                     <div className="row d-inline-flex justify-content-between">
                         <div className="col-lg-5 col-md-12 content mt-5">
                             <h1>Talenta terbaik negri untuk perubahan revolusi 4.0</h1>
                             <p>Bersama kami, temukan kesempatan untuk menggapai karir impian anda!</p>
-                            <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 text-light">
-                                Mulai Dari Sekarang
-                            </button>
+                            {token ? (
+                                <Link to={decodedToken.type === "recruiter" ? "/sort" : `/edit-worker/${decodedToken.id}`}>
+                                    <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 text-light">
+                                        Mulai Dari Sekarang
+                                    </button>
+                                </Link>
+                            ) : (
+                                <Link to={"/sort"}>
+                                    <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 text-light">
+                                        Mulai Dari Sekarang
+                                    </button>
+                                </Link>
+                            )}
                         </div>
                         <div className="col-lg-5 col-md-12">
                             <div className="d-flex flex-column justify-content-center align-items-center">
@@ -508,9 +532,19 @@ const Home = () => {
                         <div className="col-11 mb-5">
                             <div className="divcta d-flex align-items-center justify-content-between">
                                 <h1 className="text-light ms-5">Get your future with us</h1>
-                                <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 me-5">
-                                    Mulai Dari Sekarang
-                                </button>
+                                {token ? (
+                                    <Link to={decodedToken.type === "recruiter" ? "/sort" : `/edit-worker/${decodedToken.id}`}>
+                                        <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 me-5">
+                                            Mulai Dari Sekarang
+                                        </button>
+                                    </Link>
+                                ) : (
+                                    <Link to={"/sort"}>
+                                        <button type="button" className="btn btn-lg rounded-2 mt-4 fs-6 me-5">
+                                            Mulai Dari Sekarang
+                                        </button>
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     </div>
